@@ -15,11 +15,9 @@ import org.hamcrest.CoreMatchers
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentCaptor
 import org.mockito.BDDMockito.then
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations.initMocks
 import retrofit2.HttpException
 import java.util.*

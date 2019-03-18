@@ -8,6 +8,6 @@ interface BaseView {
 
     fun showProgressBar()
 
-    fun showTimeoutError()
+    fun showLoadError(messageId : Int)
 
 }

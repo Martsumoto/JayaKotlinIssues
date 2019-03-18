@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">JayaKotlinIssues</string>
+    <string name="button_open_url">Open in browser</string>
+    <string name="issue_detail_error">Could not fetch issue detail</string>
+    <string name="empty_list">Empty list</string>
+    <string name="load_issues_error">Error while loding issues</string>
 </resources>

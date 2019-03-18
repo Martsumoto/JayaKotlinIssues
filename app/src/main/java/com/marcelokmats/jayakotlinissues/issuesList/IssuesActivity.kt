@@ -10,6 +10,7 @@ import com.marcelokmats.jayakotlinissues.api.Issue
 import com.marcelokmats.jayakotlinissues.base.BaseActivity
 import com.marcelokmats.jayakotlinissues.issueDetail.IssueDetailActivity
 import com.marcelokmats.jayakotlinissues.util.ISSUE_NUMBER
+import com.marcelokmats.jayakotlinissues.util.USER
 import kotlinx.android.synthetic.main.issues_list_activity.*
 import org.jetbrains.anko.longToast
 
@@ -20,11 +21,13 @@ class IssuesActivity : BaseActivity<IssuesPresenter>(), IssuesView {
         setContentView(R.layout.issues_list_activity)
 
         presenter.onViewCreated()
+
+        swipeContainer.setOnRefreshListener { presenter.onViewCreated() }
     }
 
     override fun showIssueList(issues: List<Issue>) {
         recyclerView.visibility = View.VISIBLE
-        progressBar.visibility = View.GONE
+        swipeContainer.isRefreshing = false
         tvErrorMessage.visibility = View.GONE
 
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
@@ -37,20 +40,19 @@ class IssuesActivity : BaseActivity<IssuesPresenter>(), IssuesView {
 
     override fun showProgressBar() {
         recyclerView.visibility = View.GONE
-        progressBar.visibility = View.VISIBLE
+        swipeContainer.isRefreshing = true
         tvErrorMessage.visibility = View.GONE
     }
 
     override fun showLoadError(messageId: Int) {
         recyclerView.visibility = View.GONE
-        progressBar.visibility = View.GONE
+        swipeContainer.isRefreshing = false
         tvErrorMessage.visibility = View.VISIBLE
 
         tvErrorMessage.text = getString(messageId)
     }
 
     override fun onIssueClick(issue: Issue) {
-        longToast("Click issue ${issue.title}")
         startIssueDetailActivity(issue)
     }
 
@@ -59,6 +61,7 @@ class IssuesActivity : BaseActivity<IssuesPresenter>(), IssuesView {
     private fun startIssueDetailActivity(issue: Issue) {
         val intent = Intent(this, IssueDetailActivity::class.java)
         intent.putExtra(ISSUE_NUMBER, issue.number)
+        intent.putExtra(USER, issue.user)
         this.startActivity(intent)
     }
 

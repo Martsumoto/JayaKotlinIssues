@@ -16,11 +16,9 @@ import javax.inject.Singleton
 ])
 interface PresenterInjector {
     /**
-     * Injects required dependencies into the specified PostPresenter.
-     * @param postPresenter PostPresenter in which to inject the dependencies
+     * Injects required dependencies into the presenter.
      */
     fun inject(issuesPresenter: IssuesPresenter)
-
     fun inject(issueDetailPresenter: IssueDetailPresenter)
 
     @Component.Builder

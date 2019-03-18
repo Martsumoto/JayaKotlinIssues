@@ -55,7 +55,7 @@ class IssueDetailActivity : BaseActivity<IssueDetailPresenter>(), IssueDetailVie
 
     }
 
-    override fun getIssueNumber() = intent.getStringExtra(ISSUE_NUMBER)
+    override fun getIssueNumber(): String = intent.getStringExtra(ISSUE_NUMBER)
 
     private fun openUrl(url : String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))

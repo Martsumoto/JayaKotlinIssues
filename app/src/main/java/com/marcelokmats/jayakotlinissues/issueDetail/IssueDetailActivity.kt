@@ -14,12 +14,10 @@ import kotlinx.android.synthetic.main.issue_detail_activity.*
 
 class IssueDetailActivity : BaseActivity<IssueDetailPresenter>(), IssueDetailView {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.issue_detail_activity)
 
-        this.loadIntent()
         presenter.onViewCreated()
     }
 
@@ -52,12 +50,9 @@ class IssueDetailActivity : BaseActivity<IssueDetailPresenter>(), IssueDetailVie
         btOpen.setOnClickListener { issueDetail.htmlUrl?.let(this::openUrl) }
     }
 
-    private fun loadIntent() {
-        presenter.issueNumber = intent.getStringExtra(ISSUE_NUMBER)
-    }
-
     private fun openUrl(url : String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-
     }
+
+    override fun getIssueNumber() = intent.getStringExtra(ISSUE_NUMBER)
 }

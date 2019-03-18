@@ -12,11 +12,9 @@ import javax.inject.Inject
 class IssueDetailPresenter(issueDetailView: IssueDetailView) : BasePresenter<IssueDetailView>(issueDetailView) {
 
     @Inject
-    lateinit var githupApi: GithubService
+    lateinit var githubApi: GithubService
 
     private val subs = CompositeDisposable()
-
-    var issueNumber : String? = null
 
     init {
 
@@ -28,7 +26,11 @@ class IssueDetailPresenter(issueDetailView: IssueDetailView) : BasePresenter<Iss
     }
 
     override fun onViewCreated() {
-        issueNumber?.let { fetchIssueDetial(it) }
+        view.getIssueNumber()?.let {
+            fetchIssueDetial(it)
+        } ?: run {
+            view.showLoadError(R.string.issue_detail_number_error)
+        }
     }
 
     override fun onViewDestroyed() {
@@ -38,7 +40,7 @@ class IssueDetailPresenter(issueDetailView: IssueDetailView) : BasePresenter<Iss
 
     private fun fetchIssueDetial(number : String) {
         view.showProgressBar()
-        subs.add(githupApi.getKotlinIssueDetail(number)
+        subs.add(githubApi.getKotlinIssueDetail(number)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

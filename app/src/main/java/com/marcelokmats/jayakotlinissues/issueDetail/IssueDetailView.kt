@@ -7,4 +7,6 @@ interface IssueDetailView : BaseView {
 
     fun showIssueDetail(issueDetail: IssueDetail)
 
+
+    fun getIssueNumber() : String?
 }

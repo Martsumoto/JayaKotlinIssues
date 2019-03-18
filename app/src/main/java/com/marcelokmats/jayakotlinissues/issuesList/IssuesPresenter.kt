@@ -12,7 +12,7 @@ import javax.inject.Inject
 class IssuesPresenter(issuesView: IssuesView) : BasePresenter<IssuesView>(issuesView) {
 
     @Inject
-    lateinit var githupApi: GithubService
+    lateinit var githubApi: GithubService
 
     private val subs = CompositeDisposable()
 
@@ -45,7 +45,7 @@ class IssuesPresenter(issuesView: IssuesView) : BasePresenter<IssuesView>(issues
     private fun fetchKotlinIssues() {
         view.showProgressBar()
         subs.add(
-            githupApi.getKotlinIssues()
+            githubApi.getKotlinIssues()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 //                .doOnTerminate(view.sho)
